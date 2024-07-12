@@ -1,5 +1,4 @@
 import numpy as np
-import torch
 
 np.random.seed(0)
 
@@ -14,6 +13,16 @@ class layer_dense:
 
 # the ReLU activaion function
 class activation_relu:
-    def forward(self,)
+    def forward(self,inputs):
+        self.output = np.maximum(0,inputs)
+
+# the softmax activation
+class activation_softmax:
+    def forward(self,inputs):
+        #subracting the max to reduce the risk of overflow
+        exp_values = np.exp(inputs - np.max(inputs, axis=1, keepdims=True))
+        total_sum = np.sum(exp_values,axis=1,keepdims=True)
+        probabilities = exp_values/total_sum
+        self.output = probabilities
         
 
