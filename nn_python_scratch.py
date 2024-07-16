@@ -24,5 +24,5 @@ class activation_softmax:
         total_sum = np.sum(exp_values,axis=1,keepdims=True)
         probabilities = exp_values/total_sum
         self.output = probabilities
-        
+        ##
 
