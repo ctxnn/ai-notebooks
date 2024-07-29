@@ -26,3 +26,34 @@ class activation_softmax:
         self.output = probabilities
         ##
 
+# the Loss Class
+class Loss:
+    #calculation of the data
+    def calculate(self,output,y):
+        #sample losses
+        sample_losses = self.forward(output,y)
+
+        #mean
+        data_loss = np.mean(sample_losses)
+
+        #return loss
+        return data_loss
+
+class Loss_CategorialCrossEntropy(Loss):
+    #forward pass
+    def forward(self,y_pred,y_true):
+        samples = len(y_pred)
+
+        #prevent data to prevent division by 0
+        #the log(0) case
+        y_pred_clipped = np.clip(y_pred, 1e-7, 1-1e-7)
+
+        #for sparse labels
+        if len(y_true.shape) == 1:
+            correct_cofidences = y_pred_clipped[range(samples), y_true]
+
+        elif len(y_true.shape) == 2:
+            correct_cofidences = np.sum(y_pred_clipped * y_true, axis=1)
+
+        negative_loss_likelihoods = -np.log(correct_cofidences)
+        return negative_loss_likelihoods
