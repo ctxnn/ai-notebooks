@@ -57,3 +57,5 @@ class Loss_CategorialCrossEntropy(Loss):
 
         negative_loss_likelihoods = -np.log(correct_cofidences)
         return negative_loss_likelihoods
+
+# optimisations
